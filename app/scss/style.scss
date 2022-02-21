@@ -1,0 +1,1325 @@
+                                *,
+                                *:before,
+                                *:after {
+                                    box-sizing: border-box;
+                                    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                                }
+                                
+                                html {
+                                    -webkit-text-size-adjust: 100%;
+                                    outline: none;
+                                }
+                                /*mixin start here*/
+                                
+                                input,
+                                select,
+                                textarea {
+                                    border-radius: 0;
+                                    -webkit-appearance: none;
+                                    -moz-appearance: none;
+                                    appearance: none;
+                                    -webkit-appearance: none;
+                                    -webkit-border-radius: none;
+                                    -moz-border-radius: none;
+                                    outline: none;
+                                }
+                                
+                                button {
+                                    outline: none;
+                                    cursor: pointer;
+                                }
+                                
+                                $first-font: 'Nunito Sans',
+                                sans-serif;
+                                @mixin transition($transition) {
+                                    -webkit-transition: $transition;
+                                    -moz-transition: $transition;
+                                    -o-transition: $transition;
+                                    transition: $transition;
+                                }
+                                
+                                @mixin maintitle {
+                                    font-size: 24px;
+                                    line-height: 22px;
+                                    font-weight: 400;
+                                }
+                                
+                                @mixin font9 {
+                                    font-size: 9px;
+                                    line-height: 22px;
+                                }
+                                
+                                @mixin font12 {
+                                    font-size: 12px;
+                                    line-height: 22px;
+                                    font-weight: 400;
+                                }
+                                
+                                @mixin font13 {
+                                    font-size: 13px;
+                                    line-height: 22px;
+                                    font-weight: 400;
+                                }
+                                
+                                @mixin font14 {
+                                    font-size: 14px;
+                                    line-height: 22px;
+                                    font-weight: 400;
+                                }
+                                
+                                @mixin font17 {
+                                    font-size: 17px;
+                                    line-height: 22px;
+                                    font-weight: 400;
+                                }
+                                /*flex cross browser mixin*/
+                                
+                                @mixin flexbox {
+                                    display: -webkit-box;
+                                    display: -moz-box;
+                                    display: -webkit-flex;
+                                    display: -ms-flexbox;
+                                    display: flex;
+                                }
+                                
+                                @mixin justify-content($value: flex-start) {
+                                    @if $value==flex-start {
+                                        -webkit-box-pack: start;
+                                        -moz-box-pack: start;
+                                        -ms-flex-pack: start;
+                                    }
+                                    @else if $value==flex-end {
+                                        -webkit-box-pack: end;
+                                        -moz-box-pack: end;
+                                        -ms-flex-pack: end;
+                                    }
+                                    @else if $value==space-between {
+                                        -webkit-box-pack: justify;
+                                        -moz-box-pack: justify;
+                                        -ms-flex-pack: justify;
+                                    }
+                                    @else if $value==space-around {
+                                        -ms-flex-pack: distribute;
+                                    }
+                                    @else {
+                                        -webkit-box-pack: $value;
+                                        -moz-box-pack: $value;
+                                        -ms-flex-pack: $value;
+                                    }
+                                    -webkit-justify-content: $value;
+                                    justify-content: $value;
+                                }
+                                
+                                @mixin align-items($value: stretch) {
+                                    @if $value==flex-start {
+                                        -webkit-box-align: start;
+                                        -moz-box-align: start;
+                                        -ms-flex-align: start;
+                                    }
+                                    @else if $value==flex-end {
+                                        -webkit-box-align: end;
+                                        -moz-box-align: end;
+                                        -ms-flex-align: end;
+                                    }
+                                    @else {
+                                        -webkit-box-align: $value;
+                                        -moz-box-align: $value;
+                                        -ms-flex-align: $value;
+                                    }
+                                    -webkit-align-items: $value;
+                                    align-items: $value;
+                                }
+                                
+                                @mixin flex-direction($value: row) {
+                                    @if $value==row-reverse {
+                                        -webkit-box-direction: reverse;
+                                        -webkit-box-orient: horizontal;
+                                        -moz-box-direction: reverse;
+                                        -moz-box-orient: horizontal;
+                                    }
+                                    @else if $value==column {
+                                        -webkit-box-direction: normal;
+                                        -webkit-box-orient: vertical;
+                                        -moz-box-direction: normal;
+                                        -moz-box-orient: vertical;
+                                    }
+                                    @else if $value==column-reverse {
+                                        -webkit-box-direction: reverse;
+                                        -webkit-box-orient: vertical;
+                                        -moz-box-direction: reverse;
+                                        -moz-box-orient: vertical;
+                                    }
+                                    @else {
+                                        -webkit-box-direction: normal;
+                                        -webkit-box-orient: horizontal;
+                                        -moz-box-direction: normal;
+                                        -moz-box-orient: horizontal;
+                                    }
+                                    -webkit-flex-direction: $value;
+                                    -ms-flex-direction: $value;
+                                    flex-direction: $value;
+                                }
+                                
+                                @mixin flex-wrap($value: nowrap) {
+                                    // No Webkit/FF Box fallback.
+                                    -webkit-flex-wrap: $value;
+                                    @if $value==nowrap {
+                                        -ms-flex-wrap: none;
+                                    }
+                                    @else {
+                                        -ms-flex-wrap: $value;
+                                    }
+                                    flex-wrap: $value;
+                                }
+                                
+                                @mixin flex($fg: 1, $fs: 0, $fb: auto) {
+                                    // Set a variable to be used by box-flex properties
+                                    $fg-boxflex: $fg;
+                                    // Box-Flex only supports a flex-grow value so lets grab the
+                                    // first item in the list and just return that.
+                                    @if type-of($fg)=="list" {
+                                        $fg-boxflex: nth($fg, 1);
+                                    }
+                                    -webkit-box: $fg-boxflex;
+                                    -moz-box: $fg-boxflex;
+                                    -webkit-flex: $fg $fs $fb;
+                                    -ms-flex: $fg $fs $fb;
+                                    flex: $fg $fs $fb;
+                                }
+                                /*mixin end here*/
+                                
+                                html,
+                                body,
+                                div,
+                                span,
+                                applet,
+                                object,
+                                iframe,
+                                h1,
+                                h2,
+                                h3,
+                                h4,
+                                h5,
+                                h6,
+                                p,
+                                pre,
+                                a,
+                                abbr,
+                                acronym,
+                                address,
+                                big,
+                                cite,
+                                code,
+                                del,
+                                dfn,
+                                img,
+                                ins,
+                                kbd,
+                                q,
+                                s,
+                                samp,
+                                var,
+                                b,
+                                u,
+                                i,
+                                center,
+                                dl,
+                                dt,
+                                dd,
+                                ol,
+                                ul,
+                                li,
+                                fieldset,
+                                form,
+                                label,
+                                legend,
+                                table,
+                                caption,
+                                tbody,
+                                tfoot,
+                                thead,
+                                tr,
+                                th,
+                                td,
+                                article,
+                                aside,
+                                canvas,
+                                details,
+                                embed,
+                                figure,
+                                figcaption,
+                                footer,
+                                header,
+                                hgroup,
+                                menu,
+                                nav,
+                                output,
+                                ruby,
+                                section,
+                                summary,
+                                time,
+                                mark,
+                                audio,
+                                video {
+                                    margin: 0;
+                                    padding: 0;
+                                    font-size: 100%;
+                                    list-style: none;
+                                    vertical-align: baseline;
+                                }
+                                /* HTML5 display-role reset for older browsers */
+                                
+                                article,
+                                aside,
+                                details,
+                                figcaption,
+                                figure,
+                                footer,
+                                header,
+                                hgroup,
+                                menu,
+                                nav,
+                                section {
+                                    display: block;
+                                }
+                                
+                                a {
+                                    text-decoration: none;
+                                    @include transition(all 0.3s ease-in-out);
+                                }
+                                /*screen size and grid section start here*/
+                                
+                                $screen1500:1500px;
+                                $screen1460:1460px;
+                                $screen1350:1350px;
+                                $screen1280:1280px;
+                                $screen1250:1250px;
+                                $screen1220:1220px;
+                                $screen1170:1170px;
+                                $screen1150:1150px;
+                                $screen1080:1080px;
+                                $screen1024:1024px;
+                                $screen991:991px;
+                                $screen960:960px;
+                                $screen900:900px;
+                                $screenup768:768px;
+                                $screen767:767px;
+                                $screen640:640px;
+                                $screen540:540px;
+                                $screenup481:481px;
+                                $screen480:480px;
+                                $screen435:435px;
+                                $screen375:375px;
+                                $screen360:360px;
+                                $screen350:350px;
+                                $screen320:320px;
+                                @mixin respond-to($class) {
+                                    @if $class==$screen1500 {
+                                        @media only screen and (max-width: $screen1500) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1460 {
+                                        @media only screen and (max-width: $screen1460) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1350 {
+                                        @media only screen and (max-width: $screen1350) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1280 {
+                                        @media only screen and (max-width: $screen1280) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1250 {
+                                        @media only screen and (max-width: $screen1250) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1220 {
+                                        @media only screen and (max-width: $screen1220) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1170 {
+                                        @media only screen and (max-width: $screen1170) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1150 {
+                                        @media only screen and (max-width: $screen1150) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1080 {
+                                        @media only screen and (max-width: $screen1080) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen1024 {
+                                        @media only screen and (max-width: $screen1024) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen991 {
+                                        @media only screen and (max-width: $screen991) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen960 {
+                                        @media only screen and (max-width: $screen960) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen900 {
+                                        @media only screen and (max-width: $screen900) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screenup768 {
+                                        @media only screen and (min-width: $screenup768) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen767 {
+                                        @media only screen and (max-width: $screen767) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen640 {
+                                        @media only screen and (max-width: $screen640) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen540 {
+                                        @media only screen and (max-width: $screen540) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screenup481 {
+                                        @media only screen and (min-width: $screenup481) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen480 {
+                                        @media only screen and (max-width: $screen480) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen435 {
+                                        @media only screen and (max-width: $screen435) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen375 {
+                                        @media only screen and (max-width: $screen375) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen360 {
+                                        @media only screen and (max-width: $screen360) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen350 {
+                                        @media only screen and (max-width: $screen350) {
+                                            @content;
+                                        }
+                                    }
+                                    @if $class==$screen320 {
+                                        @media only screen and (max-width: $screen320) {
+                                            @content;
+                                        }
+                                    }
+                                }
+                                /*spacing variables end here*/
+                                
+                                $width--xl:1160px;
+                                $width--xxl:1025px;
+                                $width--l:980px;
+                                $width--m:930px;
+                                $width--s:550px;
+                                $break--mbl: 320px;
+                                $width--tblt:740px;
+                                $break--tblt:768px;
+                                $break--dsktp:1025px;
+                                .container--xl {
+                                    max-width: $width--xl;
+                                    margin: 0 auto;
+                                    padding-left: 30px;
+                                    padding-right: 30px;
+                                    @include respond-to($screen1150) {
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                    }
+                                    @include respond-to($screen767) {
+                                        padding-left: 20px;
+                                        padding-right: 20px;
+                                    }
+                                }
+                                
+                                .container--tblet {
+                                    max-width: $width--tblt;
+                                    margin: 0 auto;
+                                    @include respond-to($screen960) {
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                    }
+                                    @include respond-to($screen767) {
+                                        padding-left: 20px;
+                                        padding-right: 20px;
+                                    }
+                                }
+                                
+                                .container--m {
+                                    max-width: $width--m;
+                                    margin: 0 auto;
+                                    @include respond-to($screen960) {
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                    }
+                                    @include respond-to($screen767) {
+                                        padding-left: 20px;
+                                        padding-right: 20px;
+                                    }
+                                }
+                                
+                                .container--s {
+                                    max-width: $width--s;
+                                    margin: 0 auto;
+                                    @include respond-to($screen960) {
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                    }
+                                    @include respond-to($screen767) {
+                                        padding-left: 20px;
+                                        padding-right: 20px;
+                                    }
+                                }
+                                /* grid section css start here*/
+                                
+                                .flex {
+                                    @include flexbox;
+                                    flex-wrap: wrap;
+                                }
+                                
+                                .grid-row {
+                                    margin-left: -15px;
+                                    margin-right: -15px;
+                                    @include respond-to($screen767) {
+                                        margin-left: -10px;
+                                        margin-right: -10px;
+                                    }
+                                }
+                                
+                                $number-of-columns-mbl: 6;
+                                $number-of-columns-tblt: 12;
+                                $number-of-columns-small-container: 10;
+                                $number-of-columns: 12;
+                                $number-of-columns-common: 12;
+                                @mixin mbl-width($width) {
+                                    width: ($width / $number-of-columns-mbl) * 100%;
+                                }
+                                
+                                @mixin mbl-offset-width($width) {
+                                    margin-left: ($width / $number-of-columns-mbl) * 100%;
+                                }
+                                
+                                @mixin tblt-width($width) {
+                                    width: ($width / $number-of-columns-tblt) * 100%;
+                                }
+                                
+                                @mixin tblt-offset-width($width) {
+                                    margin-left: ($width / $number-of-columns-tblt) * 100%;
+                                }
+                                
+                                @mixin sml-cont-width($width) {
+                                    width: ($width / $number-of-columns-small-container) * 100%;
+                                }
+                                
+                                @mixin sml-offset-cont-width($width) {
+                                    margin-left: ($width / $number-of-columns-small-container) * 100%;
+                                }
+                                
+                                @mixin cont-width($width) {
+                                    width: ($width / $number-of-columns) * 100%;
+                                }
+                                
+                                @mixin cont-offset-width($width) {
+                                    margin-left: ($width / $number-of-columns) * 100%;
+                                }
+                                
+                                @mixin cont-offset-width-right($width) {
+                                    margin-right: ($width / $number-of-columns) * 100%;
+                                }
+                                
+                                @mixin width($width) {
+                                    width: ($width / $number-of-columns-common) * 100%;
+                                }
+                                
+                                @mixin offset-width($width) {
+                                    margin-left: ($width / $number-of-columns-common) * 100%;
+                                }
+                                
+                                // Mobile
+                                @media screen and (min-width: $break--mbl) and (max-width: $break--tblt) {
+                                    @for $i from 1 through $number-of-columns-mbl {
+                                        .col--#{$i}--mbl {
+                                            @include mbl-width($i);
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                            @include respond-to($screen767) {
+                                                padding-left: 10px;
+                                                padding-right: 10px;
+                                            }
+                                        }
+                                        .offset--#{$i}--mbl {
+                                            @include mbl-offset-width($i);
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                        }
+                                    }
+                                }
+                                
+                                // Tablet
+                                @media screen and (min-width: $break--tblt) and (max-width: $break--dsktp) {
+                                    @for $i from 1 through $number-of-columns-tblt {
+                                        .col--#{$i}--tblt {
+                                            @include tblt-width($i);
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                            @include respond-to($screen767) {
+                                                padding-left: 10px;
+                                                padding-right: 10px;
+                                            }
+                                        }
+                                        .offset--#{$i}--tblt {
+                                            @include tblt-offset-width($i);
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                        }
+                                    }
+                                }
+                                
+                                // small Desktop
+                                @media screen and (min-width: $break--dsktp) {
+                                    @for $i from 1 through $number-of-columns-small-container {
+                                        .col--#{$i}--sml-container {
+                                            @include sml-cont-width($i);
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                        }
+                                        .offset--#{$i}--sml-container {
+                                            @include sml-offset-cont-width($i);
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                        }
+                                    }
+                                }
+                                
+                                // Desktop
+                                @media screen and (min-width: $break--dsktp) {
+                                    @for $i from 1 through $number-of-columns {
+                                        .col--#{$i}--dsktp {
+                                            @include cont-width($i);
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                            @include respond-to($screen767) {
+                                                padding-left: 10px;
+                                                padding-right: 10px;
+                                            }
+                                        }
+                                        .offset--#{$i}--dsktp {
+                                            @include cont-offset-width($i);
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                        }
+                                        .offset--#{$i}--dsktp-right {
+                                            @include cont-offset-width-right($i);
+                                            padding-left: 15px;
+                                            padding-right: 15px;
+                                        }
+                                    }
+                                }
+                                
+                                @for $i from 1 through $number-of-columns-common {
+                                    .col--#{$i} {
+                                        @include width($i);
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                        @include respond-to($screen767) {
+                                            padding-left: 10px;
+                                            padding-right: 10px;
+                                        }
+                                    }
+                                    // base offsets
+                                    .offset--#{$i} {
+                                        @include offset-width($i);
+                                        padding-left: 15px;
+                                        padding-right: 15px;
+                                    }
+                                }
+                                /*screen size and grid section end here*/
+                                /* grid section css end here*/
+                                
+                                .maintitle {
+                                    @include maintitle;
+                                }
+                                
+                                .font9 {
+                                    @include font9;
+                                }
+                                
+                                .font12 {
+                                    @include font12;
+                                }
+                                
+                                .font13 {
+                                    @include font13;
+                                }
+                                
+                                .font14 {
+                                    @include font14;
+                                }
+                                
+                                .font17 {
+                                    @include font17;
+                                }
+                                
+                                .pdt-0 {
+                                    padding-top: 0 !important;
+                                }
+                                /*color code*/
+                                
+                                $white: #ffffff;
+                                $black: #333333;
+                                $black-light: #666666;
+                                $gray :#333366;
+                                $blue: #663399;
+                                $light-gray: rgb(102, 102, 102, 0.102);
+                                $light-gray2: rgb(51, 51, 102, 0.102);
+                                $shadow:drop-shadow(0 0 2.5px rgba(0, 0, 0, 0.15));
+                                $green: #339966;
+                                $red:#cc3333;
+                                $yellow:#ffcc00;
+                                $transparant: transparent;
+                                body {
+                                    font-family: $first-font;
+                                    background: $white;
+                                    color: $black;
+                                    &.menu-close {
+                                        .sidebar-menu {
+                                            left: -120px;
+                                            @include respond-to($screen767) {
+                                                left: 0;
+                                            }
+                                        }
+                                        .wrapper {
+                                            margin-left: 0;
+                                        }
+                                    }
+                                }
+                                
+                                .mb-20 {
+                                    margin-bottom: 20px;
+                                }
+                                /*header css start here*/
+                                
+                                header {
+                                    height: 80px;
+                                    width: 100%;
+                                    filter: $shadow;
+                                    background-color: $white;
+                                    position: fixed;
+                                    top: 0;
+                                    left: 0;
+                                    z-index: 2;
+                                    @include flexbox;
+                                    @include align-items($value: center);
+                                }
+                                /*header css end here*/
+                                /*sidebar css start here*/
+                                
+                                .sidebar-menu {
+                                    width: 120px;
+                                    height: 100%;
+                                    left: 0;
+                                    top: 0;
+                                    z-index: 1;
+                                    position: fixed;
+                                    filter: $shadow;
+                                    background-color: $white;
+                                    overflow-y: scroll;
+                                    @include transition(ease 0.25s);
+                                    &::-webkit-scrollbar {
+                                        display: none;
+                                    }
+                                    &:hover {
+                                        overflow: auto;
+                                        &::-webkit-scrollbar {
+                                            display: block;
+                                        }
+                                    }
+                                    @include respond-to($screen767) {
+                                        left: -120px;
+                                    }
+                                    ul {
+                                        padding-top: 80px;
+                                        li {
+                                            border-bottom: 1px solid $light-gray;
+                                            a {
+                                                padding: 30px 0;
+                                                @include flexbox;
+                                                @include flex-direction($value: column);
+                                                @include align-items($value: center);
+                                                text-align: center;
+                                                position: relative;
+                                                cursor: pointer;
+                                                label {
+                                                    margin-top: 8px;
+                                                }
+                                                &.active {
+                                                    &::before {
+                                                        content: "";
+                                                        position: absolute;
+                                                        width: 0;
+                                                        height: 0;
+                                                        right: 0;
+                                                        bottom: 0;
+                                                        border-style: solid;
+                                                        border-width: 2em 2em 0 2em;
+                                                        border-color: transparent $blue transparent transparent;
+                                                    }
+                                                    label {
+                                                        color: $blue;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                /*sidebar css end here*/
+                                
+                                .wrapper {
+                                    margin-left: 120px;
+                                    margin-top: 80px;
+                                    padding: 30px 0;
+                                    @include transition(ease 0.25s);
+                                    @include respond-to($screen767) {
+                                        margin-left: 0;
+                                    }
+                                }
+                                
+                                .line-btn {
+                                    font-size: 11px;
+                                    line-height: 22px;
+                                    color: $black-light;
+                                    font-weight: 400;
+                                    border: 1px solid $blue;
+                                    padding: 5px 8px;
+                                    border-radius: 26px;
+                                    cursor: pointer;
+                                }
+                                
+                                .card {
+                                    position: relative;
+                                    @include flexbox;
+                                    @include flex-direction($value: column);
+                                    background-color: $white;
+                                    border-radius: 6px;
+                                    filter: $shadow;
+                                }
+                                
+                                .card-title {
+                                    padding: 15px 20px;
+                                }
+                                
+                                .card-body {
+                                    padding: 20px
+                                }
+                                
+                                .breadcurms {
+                                    @include flexbox;
+                                    @include align-items($value: center);
+                                    padding-bottom: 20px;
+                                    border-bottom: 1px solid $light-gray2;
+                                    margin-bottom: 30px;
+                                    .page-name {
+                                        @extend .maintitle;
+                                        margin-right: 15px;
+                                    }
+                                    ul {
+                                        @include flexbox;
+                                        li {
+                                            padding-right: 10px;
+                                            margin-right: 10px;
+                                            border-right: 1px solid $black;
+                                            line-height: 1;
+                                            &:last-child {
+                                                padding-right: 0;
+                                                margin-right: 0;
+                                                border-right: 0;
+                                            }
+                                            a {
+                                                color: $black-light;
+                                                line-height: 1;
+                                                &.active {
+                                                    color: $black;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                .count-box {
+                                    padding: 20px;
+                                    text-align: center;
+                                    @include flexbox;
+                                    @include align-items($value: center);
+                                    margin-bottom: 20px;
+                                    @include justify-content($value: center);
+                                    height: 114px;
+                                    svg {
+                                        margin-bottom: 6px;
+                                        min-height: 24px;
+                                    }
+                                    label {
+                                        @extend .font13;
+                                    }
+                                    .maintitle {
+                                        &.blue {
+                                            color: $blue;
+                                        }
+                                    }
+                                }
+                                
+                                table {
+                                    border-spacing: 0;
+                                    border-collapse: collapse;
+                                }
+                                
+                                .line_3 {
+                                    background-color: rgb(102, 102, 102);
+                                    opacity: 0.102;
+                                    position: absolute;
+                                    left: 170px;
+                                    top: 599px;
+                                    width: 263px;
+                                    height: 1px;
+                                    z-index: 244;
+                                }
+                                
+                                .text-success {
+                                    color: $green;
+                                    font-weight: 700;
+                                }
+                                
+                                .text-secondary {
+                                    font-weight: 700;
+                                }
+                                
+                                .text-danger {
+                                    color: $red;
+                                    font-weight: 700;
+                                }
+                                
+                                .text-warning {
+                                    color: $yellow;
+                                    font-weight: 700;
+                                }
+                                
+                                .card-tble {
+                                    width: 100%;
+                                    thead {
+                                        background: $light-gray;
+                                        th {
+                                            @extend .font13;
+                                            padding: 6px 10px;
+                                            text-align: left;
+                                            border-top: 1px solid $light-gray;
+                                        }
+                                    }
+                                    tbody {
+                                        td {
+                                            @extend .font13;
+                                            padding: 6px 10px;
+                                            text-align: left;
+                                            border-top: 1px solid $light-gray;
+                                        }
+                                    }
+                                }
+                                
+                                .authors-list {
+                                    @include flexbox;
+                                    @include flex-direction($value: column);
+                                    .author-items {
+                                        @include flexbox;
+                                        @include align-items($value: center);
+                                        &:not(:last-of-type) {
+                                            margin-bottom: 15px;
+                                        }
+                                        .author-img {
+                                            height: 74px;
+                                            width: 74px;
+                                            overflow: hidden;
+                                            position: relative;
+                                            border-radius: 5px;
+                                            img {
+                                                height: 100%;
+                                                width: 100%;
+                                                object-fit: cover;
+                                            }
+                                        }
+                                        .auther-dec {
+                                            padding: 0 20px;
+                                            flex: 1;
+                                            p {
+                                                @include font12;
+                                                color: $black-light;
+                                            }
+                                        }
+                                    }
+                                }
+                                /*table scroll css start here*/
+                                
+                                .table-scroll {
+                                    position: relative;
+                                    width: 100%;
+                                    z-index: 1;
+                                    margin: auto;
+                                    overflow: auto;
+                                    height: 560px;
+                                    padding-bottom: 20px;
+                                }
+                                
+                                .table-scroll table {
+                                    width: 100%;
+                                    min-width: 1280px;
+                                    margin: auto;
+                                    border-collapse: separate;
+                                    border-spacing: 0;
+                                }
+                                
+                                .table-wrap {
+                                    position: relative;
+                                }
+                                
+                                .table-scroll th,
+                                .table-scroll td {
+                                    padding: 9px 20px;
+                                    background: #fff;
+                                    vertical-align: middle;
+                                    text-align: left;
+                                }
+                                
+                                .table-scroll tbody td {
+                                    padding-top: 13px;
+                                    padding-bottom: 0;
+                                }
+                                
+                                .table-scroll tbody th {
+                                    padding-top: 13px;
+                                    padding-bottom: 0;
+                                }
+                                
+                                .table-scroll thead th {
+                                    position: -webkit-sticky;
+                                    position: sticky;
+                                    top: 0;
+                                    @extend .font12;
+                                    border-bottom: 1px solid rgb(206, 212, 218);
+                                }
+                                
+                                .table-scroll tbody td {
+                                    @extend .font14;
+                                }
+                                /* safari and ios need the tfoot itself to be position:sticky also */
+                                
+                                .tbl-thumb {
+                                    height: 31px;
+                                    width: 31px;
+                                    border-radius: 4px;
+                                    object-fit: cover;
+                                }
+                                
+                                .table-scroll tfoot,
+                                .table-scroll tfoot th,
+                                .table-scroll tfoot td {
+                                    position: -webkit-sticky;
+                                    position: sticky;
+                                    bottom: 0;
+                                    background: #666;
+                                    color: #fff;
+                                    z-index: 4;
+                                }
+                                /* testing links*/
+                                
+                                .table-scroll thead th:first-child {
+                                    z-index: 2;
+                                }
+                                
+                                .table-scroll a {
+                                    cursor: pointer;
+                                }
+                                
+                                .table-scroll th:first-child {
+                                    position: -webkit-sticky;
+                                    position: sticky;
+                                    left: 0;
+                                    z-index: 1;
+                                    width: 95px;
+                                }
+                                
+                                thead th:first-child,
+                                tfoot th:first-child {
+                                    z-index: 5;
+                                }
+                                
+                                .table-scroll-footer {
+                                    padding: 10px 20px;
+                                    @include flexbox;
+                                    @include align-items($value: center);
+                                    @include justify-content($value: space-between);
+                                    .tbl-total {
+                                        @extend .font12;
+                                        color: rgba(51, 51, 51, 0.302);
+                                    }
+                                    .pagination {
+                                        @include flexbox;
+                                        @include align-items($value: center);
+                                        a {
+                                            opacity: 1;
+                                            cursor: pointer;
+                                            &.disable {
+                                                opacity: 0.3;
+                                            }
+                                        }
+                                        input {
+                                            width: 17px;
+                                            height: 12px;
+                                            border: 0;
+                                            box-shadow: 0;
+                                            padding: 0;
+                                            margin: 0 5px;
+                                            text-align: center;
+                                            @extend .font12;
+                                            cursor: pointer;
+                                            color: rgba(51, 51, 51, 0.302);
+                                            &.active {
+                                                color: $black;
+                                                border-radius: 3px;
+                                                background-color: #ced4da;
+                                            }
+                                        }
+                                        .prev-pagination {
+                                            cursor: pointer;
+                                            background: url("../../img/arrowleft.svg") no-repeat;
+                                            background-position: center;
+                                        }
+                                        .next-pagination {
+                                            cursor: pointer;
+                                            background: url("../../img/arrowRight.svg") no-repeat;
+                                            background-position: center;
+                                        }
+                                    }
+                                }
+                                /*table scroll css end here*/
+                                
+                                .logo {
+                                    width: 120px;
+                                    height: 80px;
+                                    @include flexbox;
+                                    @include align-items($value: center);
+                                    @include justify-content($value: center);
+                                    @include respond-to($screen767) {
+                                        width: 60px;
+                                    }
+                                    a {
+                                        cursor: pointer;
+                                    }
+                                }
+                                
+                                .mhide {
+                                    @include respond-to($screen767) {
+                                        display: none !important;
+                                    }
+                                }
+                                
+                                .header-wrapper {
+                                    width: calc(100% - 120px);
+                                    @include respond-to($screen767) {
+                                        width: calc(100% - 60px);
+                                    }
+                                    .heder-block {
+                                        @include flexbox;
+                                        @include justify-content($value: space-between);
+                                        @include align-items($value: center);
+                                        .header-left {
+                                            @include flexbox;
+                                            @include align-items($value: center);
+                                            .side-menu-toggle {
+                                                margin-right: 40px;
+                                                cursor: pointer;
+                                            }
+                                            .mega-menu-btn {
+                                                @include flexbox;
+                                                @include align-items($value: center);
+                                                margin-right: 40px;
+                                                cursor: pointer;
+                                                svg {
+                                                    margin-left: 10px;
+                                                }
+                                            }
+                                            .search-box {
+                                                width: 230px;
+                                                height: 40px;
+                                                border-radius: 20px;
+                                                background-color: #ffffff;
+                                                border: 1px solid rgb(51, 51, 102, 0.102);
+                                                position: relative;
+                                                overflow: hidden;
+                                                @include respond-to($screen767) {
+                                                    position: fixed;
+                                                    top: 88px;
+                                                    width: 100%;
+                                                    left: 0;
+                                                    opacity: 0;
+                                                    transform: translateY(30px);
+                                                    z-index: -2;
+                                                    @include transition(ease 0.25s);
+                                                    &.active {
+                                                        opacity: 1;
+                                                        transform: translateY(0);
+                                                        z-index: 1;
+                                                    }
+                                                }
+                                                input {
+                                                    position: absolute;
+                                                    height: 100%;
+                                                    width: 100%;
+                                                    border: 0;
+                                                    appearance: none;
+                                                    -webkit-appearance: none;
+                                                    left: 0;
+                                                    top: 0;
+                                                    padding: 0 20px;
+                                                    @extend .font13;
+                                                }
+                                                button {
+                                                    position: absolute;
+                                                    right: 10px;
+                                                    height: 100%;
+                                                    background: transparent;
+                                                    border: 0;
+                                                }
+                                            }
+                                        }
+                                        .header-right {
+                                            ul {
+                                                @include flexbox;
+                                                @include align-items($value: center);
+                                                li {
+                                                    &:not(:last-of-type) {
+                                                        margin-right: 20px;
+                                                    }
+                                                    a {
+                                                        cursor: pointer;
+                                                    }
+                                                    .notification {
+                                                        position: relative;
+                                                        .count {
+                                                            height: 13px;
+                                                            width: 13px;
+                                                            border-radius: 50%;
+                                                            background: $blue;
+                                                            position: absolute;
+                                                            right: -2px;
+                                                            top: -7px;
+                                                            color: $white;
+                                                            @include flexbox;
+                                                            @include align-items($value: center);
+                                                            @include justify-content($value: center);
+                                                        }
+                                                    }
+                                                    .ac-avitar {
+                                                        min-height: 36px;
+                                                        min-width: 36px;
+                                                        width: 100%;
+                                                        height: 100%;
+                                                        line-height: 36px;
+                                                        border-radius: 50%;
+                                                        @include flexbox;
+                                                        overflow: hidden;
+                                                        position: relative;
+                                                        background-color: #daf2fe;
+                                                        img {
+                                                            width: 100%;
+                                                            height: 100%;
+                                                            object-fit: cover;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                .sidebar-menu {
+                                    scrollbar-width: .4em;
+                                    scrollbar-color: rgba(0, 0, 0, .2) #ffffff;
+                                }
+                                
+                                .sidebar-menu::-webkit-scrollbar-track {
+                                    background-color: transparent;
+                                }
+                                
+                                .sidebar-menu::-webkit-scrollbar {
+                                    width: .4em;
+                                    background-color: transparent;
+                                }
+                                
+                                .sidebar-menu::-webkit-scrollbar,
+                                .sidebar-menu::-webkit-scrollbar-thumb {
+                                    overflow: visible;
+                                    border-radius: 4px;
+                                }
+                                
+                                .sidebar-menu::-webkit-scrollbar-thumb {
+                                    background: rgba(0, 0, 0, .2);
+                                }
+                                
+                                .cover-bar {
+                                    position: absolute;
+                                    background: #fff;
+                                    ;
+                                    height: 100%;
+                                    top: 0;
+                                    right: 0;
+                                    width: .4em;
+                                    -webkit-transition: all .5s;
+                                    opacity: 1;
+                                }
+                                
+                                .sidebar-menu:hover .cover-bar {
+                                    opacity: 0;
+                                    -webkit-transition: all .5s;
+                                }
+                                
+                                @media(hover: hover) {
+                                    .line-btn:hover {
+                                        background: $blue;
+                                        color: $white;
+                                    }
+                                    .header-wrapper .heder-block .header-right ul li a:hover svg path,
+                                    .sidebar-menu ul li a:hover svg path,
+                                    .mega-menu-btn:hover svg path {
+                                        fill: $blue;
+                                    }
+                                    .sidebar-menu ul li a:hover,
+                                    .mega-menu-btn:hover {
+                                        color: $blue;
+                                    }
+                                }
