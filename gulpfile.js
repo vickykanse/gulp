@@ -6,16 +6,7 @@ const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const terser = require('gulp-terser');
 const browsersync = require('browser-sync').create();
-
-
-// Sass Task
-// function scssTask() {
-//     return gulp.src('app/scss/**/*.scss')
-//         .pipe(cssnano())
-//         .pipe(sass().on('error', sass.logError))
-
-//     .pipe(gulp.dest('dist', { sourcemaps: '.' }));
-// };
+ 
 function scssTask() {
     return src('app/scss/**/*.scss', { sourcemaps: true })
         .pipe(sass())
